@@ -3,6 +3,7 @@ version: "3.7"
 services:
     backend:
         container_name: sir-note-backend
+        # image: docker.pkg.github.com/minhthong582000/thiet-ke-mang/tasks-management-api:latest
         build:
             context: ./backend
         restart: always
@@ -21,6 +22,7 @@ services:
 
     frontend:
         container_name: sir-note-frontend
+        # image: docker.pkg.github.com/minhthong582000/thiet-ke-mang/tasks-management-fe:latest
         build:
             context: ./frontend
         restart: always

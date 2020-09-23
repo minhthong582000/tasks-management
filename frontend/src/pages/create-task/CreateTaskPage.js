@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { TextField, FormControl, Button
-} from "@material-ui/core";
+import { TextField, FormControl, Button } from "@material-ui/core";
 import styled from "styled-components";
-import { inject,observer } from "mobx-react";
+import { inject, observer } from "mobx-react";
 import ErrorMessage from "../../components/ErrorMessage";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
-import Footer from '../../components/Footer';
+import Footer from "../../components/Footer";
 
 const FormWrapper = styled.div`
   width: 100vw
@@ -30,124 +29,130 @@ const FormContainer = styled.div`
 @inject("tasksStore", "routerStore", "userStore")
 @observer
 class CreateTaskPage extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      title: "",
-      description: "",
-      errorMessage: null,
-    };
-  }
-
-  handleSubmitTask = async () => {
-    const { tasksStore, routerStore } = this.props;
-    const { title, description } = this.state;
-
-    try {
-      await tasksStore.createTask(title, description);
-      routerStore.push("/tasks");
-    } catch (error) {
-      const errorMessage = error.response.data.message;
-      this.setState({ errorMessage });
+        this.state = {
+            title: "",
+            description: "",
+            errorMessage: null,
+        };
     }
-  };
 
-  goToTasks = () => {
-    const { routerStore } = this.props;
-    routerStore.push('/tasks');
-  }
+    handleSubmitTask = async () => {
+        const { tasksStore, routerStore } = this.props;
+        const { title, description } = this.state;
 
-  handleSignOut = () => {
-    const { userStore, tasksStore, routerStore } = this.props;
-    userStore.signout();
-    tasksStore.resetTasks();
-    routerStore.push("/signin");
-  };
+        try {
+            await tasksStore.createTask(title, description);
+            routerStore.push("/tasks");
+        } catch (error) {
+            const errorMessage = error.response.data.message;
+            this.setState({ errorMessage });
+        }
+    };
 
-  render() {
-    // const { userStore } = this.props;
+    goToTasks = () => {
+        const { routerStore } = this.props;
+        routerStore.push("/tasks");
+    };
 
-    // if(userStore.isNotLoggedIn() === true) {
-    //   this.handleSignOut();
-    // }
+    handleSignOut = () => {
+        const { userStore, tasksStore, routerStore } = this.props;
+        userStore.signout();
+        tasksStore.resetTasks();
+        routerStore.push("/signin");
+    };
 
-    return (
-      <div>
-      <FormWrapper>
-        <FormContainer>
-          <h1>Create a new task</h1>
-          <p>Provide information about the task you wish to complete.</p>
+    render() {
+        // const { userStore } = this.props;
 
-          {this.state.errorMessage && (
-            <ErrorMessage message={this.state.errorMessage} />
-          )}
+        // if(userStore.isNotLoggedIn() === true) {
+        //   this.handleSignOut();
+        // }
 
-          <FormControl fullWidth>              
-            <TextField
-              placeholder="Title"
-              margin="normal"
-              variant="outlined"
-              InputLabelProps={{shrink: false}}
-              onChange={(e) => this.setState({ title: e.target.value })}
-            />            
-          </FormControl>
-          <FormControl fullWidth>
-            <CKEditor
-              config={{
-                placeholder: "Description",
-              }}
-              onInit={(editor) => {
-                editor.ui
-                  .getEditableElement()
-                  .parentElement.insertBefore(
-                    editor.ui.view.toolbar.element,
-                    editor.ui.getEditableElement()
-                  );
-              }}
-              editor={DecoupledEditor}
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  this.setState({ description: data });
-                }}
-            />
-            {/* <TextField id="toolbar-container"
+        return (
+            <div>
+                <FormWrapper>
+                    <FormContainer>
+                        <h1>Create a new task</h1>
+                        <p>
+                            Provide information about the task you wish to
+                            complete.
+                        </p>
+
+                        {this.state.errorMessage && (
+                            <ErrorMessage message={this.state.errorMessage} />
+                        )}
+
+                        <FormControl fullWidth>
+                            <TextField
+                                placeholder="Title"
+                                margin="normal"
+                                variant="outlined"
+                                InputLabelProps={{ shrink: false }}
+                                onChange={(e) =>
+                                    this.setState({ title: e.target.value })
+                                }
+                            />
+                        </FormControl>
+                        <FormControl fullWidth>
+                            <CKEditor
+                                config={{
+                                    placeholder: "Description",
+                                }}
+                                onInit={(editor) => {
+                                    editor.ui
+                                        .getEditableElement()
+                                        .parentElement.insertBefore(
+                                            editor.ui.view.toolbar.element,
+                                            editor.ui.getEditableElement()
+                                        );
+                                }}
+                                editor={DecoupledEditor}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    this.setState({ description: data });
+                                }}
+                            />
+                            {/* <TextField id="toolbar-container"
                             label="Description"
                             multiline
                             rows="8"
                             margin="normal"
                             variant="outlined"
                         /> */}
-          </FormControl>
+                        </FormControl>
 
-          <Button
-            style={{ marginTop: "10px",
-              backgroundColor:"#303030",
-              color:"#ffffff",
-            }}
-            fullWidth
-            variant="contained"
-            onClick={this.handleSubmitTask}
-          >
-            CREATE TASK
-          </Button>
-          <Button
-            style={{ marginTop: "10px",
-              backgroundColor:"#626262",
-              color:"#ffffff",
-            }}
-            fullWidth
-            variant="contained"
-            onClick={this.goToTasks}
-          >
-            Go back to homepage
-          </Button>
-        </FormContainer>
-      </FormWrapper>
-    </div>
-
-    );
-  }
+                        <Button
+                            style={{
+                                marginTop: "10px",
+                                backgroundColor: "#303030",
+                                color: "#ffffff",
+                            }}
+                            fullWidth
+                            variant="contained"
+                            onClick={this.handleSubmitTask}
+                        >
+                            CREATE TASK
+                        </Button>
+                        <Button
+                            style={{
+                                marginTop: "10px",
+                                backgroundColor: "#626262",
+                                color: "#ffffff",
+                            }}
+                            fullWidth
+                            variant="contained"
+                            onClick={this.goToTasks}
+                        >
+                            Go back to homepage
+                        </Button>
+                    </FormContainer>
+                </FormWrapper>
+            </div>
+        );
+    }
 }
 
 export default CreateTaskPage;

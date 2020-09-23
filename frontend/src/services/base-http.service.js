@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default class BaseHttpService {
-    BASE_URL = "http://34.198.89.91/api";
+    BASE_URL = "http://18.223.145.100/api";
     _accessToken = null;
 
     constructor(routerStore) {
