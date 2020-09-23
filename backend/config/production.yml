@@ -1,0 +1,5 @@
+server:
+    origin: 'http://34.198.89.91'
+
+db:
+    synchronize: false

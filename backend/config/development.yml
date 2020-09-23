@@ -1,0 +1,8 @@
+db:
+    host: 'localhost'
+    username: 'mrass'
+    password: 'minhthong'
+    synchronize: true
+
+jwt:
+    secret: 'anhthongdz'

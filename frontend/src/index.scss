@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    //background-color: #434e5e;
+    background-color: #303030;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+:root {
+    .ck.ck-editor__editable_inline {
+        min-height: 300px !important;
+        max-height: 300px !important;
+        border: 0.5px solid;
+        background-color: white;
+    }
+
+    .MuiCardHeader-content {
+        display: inline;
+        border-bottom: 1px solid white;
+    }
+
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: #454753;
+        border-width: 2px;
+    }
+
+    .MuiMenu-paper.Mui-focused {
+        /* Increase the specificity */
+        border-color: #454753;
+        border-width: 2px;
+    }
+}
+
+a,
+a:hover,
+a:focus {
+    outline: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+table,
+td {
+    border: 1px solid white;
+}

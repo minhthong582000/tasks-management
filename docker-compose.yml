@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+    backend:
+        container_name: sir-note-backend
+        build:
+            context: ./backend
+        restart: always
+        volumes:
+            - sir-note-backend:/usr/src/app
+        ports:
+            - 8080:8080
+        env_file:
+            - ./backend/.env
+        # network_mode: host
+        networks:
+            sirnote-net:
+                ipv4_address: 172.28.1.4
+        extra_hosts:
+            - docker.host:172.17.0.1
+
+    frontend:
+        container_name: sir-note-frontend
+        build:
+            context: ./frontend
+        restart: always
+        ports:
+            - 80:80
+        networks:
+            - sirnote-net
+
+volumes:
+    sir-note-backend:
+    sir-note-frontend:
+networks:
+    sirnote-net:
+        name: sirnote-net
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.28.0.0/16
