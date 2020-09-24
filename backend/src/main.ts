@@ -18,12 +18,14 @@ async function bootstrap() {
     if (process.env.NODE_ENV === 'production') {
         app.enableCors({
             origin: [
+                process.env.CORS_ORIGIN,
                 serverConfig.origin,
                 'http://127.0.0.1',
                 'http://172.20.0.2',
                 'http://172.20.0.1',
                 'http://localhost',
                 'http://frontend',
+                'http://nhom12.sirdev.codes',
             ],
         });
         app.use(helmet());
